@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>sayy</title>
+    <link rel="stylesheet" href="/app.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <nav class="navbar" aria-label="Primary">
+        <a class="brand" href="/">sayy</a>
+        <div class="nav-links">
+          <a data-nav="recording" href="/">Record</a>
+          <a data-nav="controls" href="/controls">Controls</a>
+        </div>
+      </nav>
+
+      <section id="recordingPage" class="page recording-page" aria-label="Recording">
+        <div class="recording-header">
+          <button id="recordButton" class="record-button" type="button" aria-label="Start recording">
+            <span class="record-dot" aria-hidden="true"></span>
+          </button>
+
+          <div class="status-row" aria-live="polite">
+            <div id="status" class="status">Ready. Press Enter to begin.</div>
+            <div id="activeMode" class="active-mode">H1</div>
+          </div>
+        </div>
+
+        <section class="workspace" aria-label="Markdown workspace">
+          <pre id="markdownView" class="markdown-view" aria-label="Generated markdown text"></pre>
+          <textarea id="markdown" class="markdown-copy" readonly spellcheck="false" aria-label="Generated markdown"></textarea>
+        </section>
+
+        <section class="bottom-controls" aria-label="Recording controls">
+          <button id="toggleRecording" class="control-button primary-control" type="button">Start</button>
+          <div class="mode-controls" role="group" aria-label="Markdown block type">
+            <button class="control-button mode-button" type="button" data-mode-kind="heading" data-mode-level="1">H1</button>
+            <button class="control-button mode-button" type="button" data-mode-kind="heading" data-mode-level="2">H2</button>
+            <button class="control-button mode-button" type="button" data-mode-kind="heading" data-mode-level="3">H3</button>
+            <button class="control-button mode-button" type="button" data-mode-kind="heading" data-mode-level="4">H4</button>
+            <button class="control-button mode-button" type="button" data-mode-kind="paragraph" data-mode-level="0">P</button>
+          </div>
+          <button id="clearBoard" class="control-button" type="button" aria-label="Copy markdown and clear board">Clear</button>
+        </section>
+      </section>
+
+      <section id="controlsPage" class="page controls-page" aria-label="Controls">
+        <header class="controls-header">
+          <p class="eyebrow">Controls</p>
+          <h1>Recording shortcuts</h1>
+        </header>
+
+        <section class="guide" aria-label="How to write">
+          <div><kbd>Enter</kbd><span>start recording</span></div>
+          <div><kbd>\</kbd><span>end and copy markdown</span></div>
+          <div><kbd>Backspace</kbd><span>copy, clear, reset</span></div>
+          <div><kbd>1</kbd><span># heading</span></div>
+          <div><kbd>2</kbd><span>## heading</span></div>
+          <div><kbd>3</kbd><span>### heading</span></div>
+          <div><kbd>4</kbd><span>#### heading</span></div>
+          <div><kbd>P</kbd><span>paragraph</span></div>
+        </section>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
