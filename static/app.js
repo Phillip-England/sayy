@@ -28,6 +28,7 @@
     markdown: document.querySelector("#markdown"),
     toggleRecording: document.querySelector("#toggleRecording"),
     clearBoard: document.querySelector("#clearBoard"),
+    undoBlock: document.querySelector("#undoBlock"),
     modeButtons: document.querySelectorAll("[data-mode-kind]"),
   };
 
@@ -58,6 +59,8 @@
       "aria-label",
       state.recording ? "Stop and copy markdown" : "Start recording",
     );
+    els.undoBlock.disabled = state.blocks.length === 0;
+    els.undoBlock.setAttribute("aria-disabled", String(state.blocks.length === 0));
     els.modeButtons.forEach((button) => {
       const isActive =
         button.dataset.modeKind === state.activeKind &&
@@ -73,6 +76,10 @@
       return active;
     }
 
+    return createBlock(kind, level);
+  }
+
+  function createBlock(kind = state.activeKind, level = state.activeLevel) {
     const block = { kind, level, text: "", interim: "" };
     state.blocks.push(block);
     state.activeIndex = state.blocks.length - 1;
@@ -86,10 +93,37 @@
   function setMode(kind, level = 0) {
     state.activeKind = kind;
     state.activeLevel = level;
-    ensureBlock(kind, level);
+    createBlock(kind, level);
     els.activeMode.textContent = modeLabel(kind, level);
     setStatus(`${modeLabel(kind, level)} ready. Keep speaking.`);
     syncControls();
+  }
+
+  function undoLastBlock() {
+    commitActiveInterim();
+    if (!state.blocks.length) {
+      setStatus("Nothing to undo.");
+      syncControls();
+      return;
+    }
+
+    state.blocks.pop();
+    state.activeIndex = state.blocks.length - 1;
+
+    const active = state.blocks[state.activeIndex];
+    if (active) {
+      state.activeKind = active.kind;
+      state.activeLevel = active.level;
+    } else {
+      state.activeKind = defaultKind;
+      state.activeLevel = defaultLevel;
+    }
+
+    els.activeMode.textContent = modeLabel(state.activeKind, state.activeLevel);
+    setStatus(state.blocks.length ? "Removed latest block." : "Board is empty.");
+    render();
+    syncControls();
+    resetRecognitionResults();
   }
 
   function resetPage() {
@@ -401,6 +435,7 @@
     else startRecording();
   });
   els.clearBoard.addEventListener("click", copyAndResetPage);
+  els.undoBlock.addEventListener("click", undoLastBlock);
   els.modeButtons.forEach((button) => {
     button.addEventListener("click", () => {
       if (state.recording) commitActiveInterim();

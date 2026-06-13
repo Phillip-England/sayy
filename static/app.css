@@ -257,7 +257,7 @@ kbd {
   border-radius: 8px;
   background: rgba(17, 17, 17, 0.96);
   display: grid;
-  grid-template-columns: minmax(58px, 0.7fr) minmax(0, 3fr) minmax(58px, 0.7fr);
+  grid-template-columns: minmax(58px, 0.7fr) minmax(0, 3fr) minmax(58px, 0.7fr) minmax(58px, 0.7fr);
   gap: 6px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
 }
@@ -288,6 +288,17 @@ kbd {
   border-color: var(--accent-strong);
   color: var(--accent-strong);
   outline: none;
+}
+
+.control-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.control-button:disabled:hover,
+.control-button:disabled:focus-visible {
+  border-color: var(--line);
+  color: var(--text);
 }
 
 .control-button.is-active {
@@ -382,7 +393,7 @@ kbd {
     left: 6px;
     right: 6px;
     bottom: max(6px, env(safe-area-inset-bottom, 0px));
-    grid-template-columns: 52px minmax(0, 1fr) 52px;
+    grid-template-columns: 50px minmax(0, 1fr) 50px 50px;
     gap: 4px;
     padding: 5px;
   }
