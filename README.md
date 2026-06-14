@@ -24,9 +24,10 @@ SAYY_HOST=0.0.0.0 SAYY_PORT=8787 cargo run --release
 - `3`: start a `###` heading
 - `4`: start a `####` heading
 - `P`: start a paragraph
+- `U`: remove the latest block
 - `\` while recording: stop and copy generated markdown to the clipboard
 - `Backspace`: copy generated markdown to the clipboard, clear it, and reset the page
 
-The recording page also includes a compact bottom control bar for touch devices with start/copy, heading, paragraph, and copy/clear controls.
+The recording page also includes a compact bottom control bar for touch devices with start/copy, heading, paragraph, undo, and copy/clear controls.
 
 Speech recognition requires browser support for the Web Speech API. Chrome is the best target; Safari support depends on the installed version and platform settings.

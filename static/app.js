@@ -411,9 +411,15 @@
       return;
     }
 
+    const key = event.key.toLowerCase();
+    if (key === "u") {
+      event.preventDefault();
+      undoLastBlock();
+      return;
+    }
+
     if (!state.recording) return;
 
-    const key = event.key.toLowerCase();
     if (["1", "2", "3", "4"].includes(key)) {
       event.preventDefault();
       commitActiveInterim();
